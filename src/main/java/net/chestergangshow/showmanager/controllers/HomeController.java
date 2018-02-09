@@ -10,4 +10,9 @@ public class HomeController {
   public String index() {
     return "index";
   }
+
+  @GetMapping(value = "/private")
+  public String privateArea() {
+    return "private";
+  }
 }
