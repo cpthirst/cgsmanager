@@ -10,6 +10,7 @@ import java.util.List;
 
 public class CustomUserDetail implements UserDetails {
 
+  private static final String ROLE_PREFIX = "ROLE_";
   private String username;
   private String password;
   private Collection<? extends GrantedAuthority> authorities;
@@ -17,12 +18,20 @@ public class CustomUserDetail implements UserDetails {
   public CustomUserDetail(User byUsername) {
     this.username = byUsername.getUsername();
     this.password = byUsername.getPassword();
+    this.authorities = translate(byUsername.getRoles());
+  }
 
+  private List<GrantedAuthority> translate(List<Role> roles) {
     List<GrantedAuthority> auths = new ArrayList<>();
-    for (Role role : byUsername.getRoles()) {
-      auths.add(new SimpleGrantedAuthority(role.getName().toUpperCase()));
+    for (Role role : roles) {
+      String name = role.getName().toUpperCase();
+
+      if (!name.startsWith(ROLE_PREFIX)) {
+        name = ROLE_PREFIX + name;
+      }
+      auths.add(new SimpleGrantedAuthority(name));
     }
-    this.authorities = auths;
+    return auths;
   }
 
   @Override

@@ -17,7 +17,7 @@ public class GangService {
     return gangRepository.findAll();
   }
 
-  public void insert(GangMember gangMember) {
+  public void save(GangMember gangMember) {
     gangRepository.save(gangMember);
   }
 }

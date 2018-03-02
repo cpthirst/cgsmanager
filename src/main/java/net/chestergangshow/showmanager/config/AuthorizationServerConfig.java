@@ -18,11 +18,13 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
   @Override
   public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+    // isAuthenticated() returns true is the client is not anonymous
     security.checkTokenAccess("isAuthenticated()");
   }
 
   @Override
   public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+
     clients.inMemory().withClient("my-trusted-client")
         .authorizedGrantTypes("client_credentials", "password")
         .authorities("ROLE_CLIENT", "ROLE_TRUSTED_CLIENT")
