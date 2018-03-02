@@ -16,6 +16,8 @@ public class Show {
   private Integer year;
   @DBRef(db="item")
   private List<Item> items = new ArrayList<>();
+  @DBRef(db="gangMember")
+  private List<GangMember> cast = new ArrayList<>();
 
   public Show() {
   }
@@ -47,5 +49,13 @@ public class Show {
 
   public void setItems(List<Item> items) {
     this.items = items;
+  }
+
+  public List<GangMember> getCast() {
+    return cast;
+  }
+
+  public void setCast(List<GangMember> cast) {
+    this.cast = cast;
   }
 }
